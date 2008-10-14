@@ -32,51 +32,15 @@
 
 package com.vlengine.renderer.material;
 
-import com.vlengine.app.AppContext;
-import com.vlengine.renderer.material.Material;
-import com.vlengine.resource.ParameterMap;
-import java.lang.reflect.Method;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  *
- * A RenderLib is responsible for creating shaders and setting up
- * OpenGL states for rendering objects
- * The idea is that each ModelBatch contains information on the way it would
- * like to be rendered. The RenderLib converts these informations to OpenGL
+ * A MaterialLib is responsible for creating shaders and setting up
+ * OpenGL states for rendering objects.
+ * The idea is that each Model (in ModelMaterial) contains information on the way it would
+ * like to be rendered. The MaterialLib converts these informations to OpenGL
  * states and shaders.
- * Another application of renderlibs is using them in renderpasses. Diferent 
- * passes can use diferent RenderLibs to render the scene.
- * 
- * The loaded model contains named resources like:
- * Vertex coords, Normals, Texture coordinates, Shader attribute arrays, Textures
- * a RenderFunction string
- * For textures it is defined, which coordinate set it uses
- * For each vertex attribute, is it constant, or it changes during time
- * Not changing attributes are put into and interleaved array, and put into a
- * 2 to 4 MB large shared VBO
- * The renderfunction translates to a material in the renderlib
- * A Material defines the required resources:
- * Vertex coords, Normals, Number and type of used textures, Texture coordinates
- * Behind each material is a shader and some OpenGL state setting
- * 
- * The renderlib takes resources and effects from the scene like Lights, Fog
- * 
- * The renderlib then searches its Material database to try to match the 
- * requested material based on the provided renderfunction, and resources.
- * 
- * The given configuration is considered, like the graphic card brand and type.
- * The list contains preferred material names and incompatible material names
- * 
- * Shaders throwing exception are marked as non-compatible. 
- * 
- * The renderlib creates/reuses shaders and takes binding information on attributes
- * and uniforms (OpenGL id-s), and writes them to ModelBatch. There is an array
- * in ModelBatch for these binding information, so that each diferent
- * Material in ModelBatch has its binding information.
  * 
  * @author vear (Arpad Vekas)
  */
@@ -102,24 +66,7 @@ public abstract class MaterialLib {
     public static final MatParameters.ParamKey BUMPMAP = MatParameters.ParamKey.BumpMap;
     
     public static final MatParameters.ParamKey BONES = MatParameters.ParamKey.Bones;
-    
-    //public static final String  = "ALPHAFUNC";
-    // texture object passed <TEXTURE[x],Texture> or <TEXTURE[x],FastList<Texture>>
-    //public static final String TEXTURE[] = new String[] { "null", "DIFFUSE0", "DIFFUSE1", "NORMAL", "NORMBUMP" };
-            
-    //public static final String ALPHATEST = "ALPHATEST";
-    // <ALPHAFUNC,Integer>
-    //public static final String ALPHAFUNC = "ALPHAFUNC";
-    //public static final String ALPHABLEND = "ALPHABLEND";
-    
-    // <NOCULL,Boolean>
-    //public static final String NOCULL = "NOCULL";
-    // <ANIM_FRAMES,Integer>
-    //public static final String ANIM_FRAMES = "ANIM_FRAMES";
-    
-    // skinning
-    //public static final String BONES = "BONES";
-    
+        
     public static final MatParameters.ParamKey DISSOLVE = MatParameters.ParamKey.Dissolve;
     public static final MatParameters.ParamKey AMBIENT = MatParameters.ParamKey.Ambient;
     public static final MatParameters.ParamKey DIFFUSE = MatParameters.ParamKey.Diffuse;
@@ -142,24 +89,9 @@ public abstract class MaterialLib {
     public Material getMaterial(String name, MatParameters params) {
         
         Material mat = null;
-        /*
-        try {
-            
-            Method m = this.getClass().getMethod(name, handlerSig);
-            if(m!=null)
-                mat=(Material) m.invoke(this, params);
-            
-        } catch (Exception ex) {
-            // do not throw exception, it is normal for a material library to not handle all the
-            // material types
-            //logger.log(Level.SEVERE, null, ex);
-        }
-        if(mat==null) {
-         */
-            // we could not provide the material, check if our parent can do it
-            if(parent!=null)
-                mat=parent.getMaterial(name, params);
-        //}
+        // we could not provide the material, check if our parent can do it
+        if(parent!=null)
+            mat=parent.getMaterial(name, params);
         return mat;
     }
 }

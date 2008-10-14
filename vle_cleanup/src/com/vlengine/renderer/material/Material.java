@@ -32,14 +32,10 @@
 
 package com.vlengine.renderer.material;
 
-import com.vlengine.app.frame.Frame;
-import com.vlengine.light.Light;
 import com.vlengine.renderer.ColorRGBA;
 import com.vlengine.renderer.RenderContext;
 import com.vlengine.renderer.RenderQueue;
 import com.vlengine.renderer.CullContext;
-import com.vlengine.scene.Renderable;
-import com.vlengine.scene.state.AlphaBlendState;
 import com.vlengine.scene.state.AlphaTestState;
 import com.vlengine.scene.state.LightState;
 import com.vlengine.scene.state.RenderState;
@@ -56,8 +52,6 @@ import com.vlengine.util.IntMap;
  */
 public class Material {
 
-    //protected int matUsage = USAGEFLAG_UNLIT;
-
     // material needs update ( get states from parents )
     protected boolean needupdate = true;
     
@@ -70,12 +64,6 @@ public class Material {
     // but at rendertime, the Renderable renderQueueMode decides
     long renderQueueMode = RenderQueue.QueueFilter.Opaque.value;
     
-    /**
-     * The compiled list of renderstates for this geometry, taking into account
-     * ancestors' states - updated during cull
-     */
-    //public RenderState[] states;
-    
     /** The render states of this material. */
     // classified by usage flags set
     public RenderState[] states;
@@ -83,20 +71,12 @@ public class Material {
     protected IntMap shaderStateMap;
     protected FastList<ShaderObjectsState> shaderStateList;
     
-    //protected int matNum = -1;
-    
     protected ColorRGBA defaultColor = new ColorRGBA(ColorRGBA.white);
     
     protected int lightCombineMode = LightState.INHERIT;
 
     public Material() {}
-
-    /*
-    public void setMatNum(int matn) {
-        matNum = matn;
-    }
-     */
-    
+   
     public boolean isNeedUpdate() {
         return needupdate;
     }
@@ -136,48 +116,12 @@ public class Material {
     // TODO: this needs to be changed so that
     // it updates data gathering methods
     public void update( CullContext ctx ) {
-        //updateStates( ctx );
         
     }
     
     public boolean isNeedRefresh() {
         return needrefresh;
     }
-    
-    /*
-    public void updateStates(CullContext ctx ) {
-        RenderState[] parentstates = ctx!=null ? ctx.getRenderStateList(matNum) : null;
-        
-        if( parentstates == null && renderStateList == null)
-            return;
-        
-        if( states == null)
-            states = new RenderState[RenderState.RS_MAX_STATE];
-        
-        if( parentstates == null )
-            System.arraycopy(renderStateList, 0, states, 0, RenderState.RS_MAX_STATE);
-        else if( renderStateList == null )
-            System.arraycopy(parentstates, 0, states, 0, RenderState.RS_MAX_STATE);
-        else {
-            for (int i = 0; i < RenderState.RS_MAX_STATE; i++) {
-                states[i] = renderStateList[i] != null ? renderStateList[i] : parentstates[i];
-            }
-        }
-
-        // combine lights
-        if(this.lightCombineMode == LightState.OFF)
-            states[RenderState.RS_LIGHT] = null;
-        // TODO: combine shader parameters?
-        
-    }
-     */
-    
-    /*
-    public RenderState[] getCurrentStates() {
-        return states;
-    }
-     */
-    
     
     public RenderState setRenderState( RenderState rs ) {
         if ( rs == null ) {
@@ -401,36 +345,5 @@ public class Material {
     public int getLightCombineMode() {
         return lightCombineMode;
     }
-        
-    /**
-     * Specify how this material should be used by the engine:
-     * USAGE_DEPTHONLY  this material does not provide (or is ignored if it does)
-     *                  any color information, it is used by depth determining passes
-     *                  if an object uses vertex animating shaders, then the version of
-     *                  the animating shader, with no color texture lookup, and no color 
-     *                  output should be set in this material
-     * USAGE_AMBIENT    this material is used in passes that render using ambient color
-     *                  which is not affected by any direct lights, lights will be
-     *                  ignored if they are set. when using shaders, the version of the
-     *                  shader should be used, which does not rely on lights
-     * USAGE_LIT        this material is used by the lighing passes, with no shadowing.
-     *                  one light is passed to the shader
-     * USAGE_LITSHADOWED    this material is used when lighting the object with shadowmap
-     *                      present. one light is passed, and one shadowmap is bound.
-     *                      one texture unit should be left unoccupied for the shadow map.
-     *                      when using shaders, the shadowMap shader texture is filled
-     *                      with the shadowmap texture and the shadowMatrix is filled
-     *                      with the perspective transform of the shadowmap. when using
-     *                      shaders, a shader with depth texture check should be used here
-     * @param usage
-     */
-    /*
-    public void setMaterialUsage(int usage) {
-        this.matUsage = usage;
-    }
-    
-    public int getMaterialUsage() {
-        return matUsage;
-    }
-     */
+
 }

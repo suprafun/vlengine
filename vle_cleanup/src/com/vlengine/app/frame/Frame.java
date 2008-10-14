@@ -62,7 +62,7 @@ import java.util.logging.Logger;
  */
 public class Frame implements Runnable {
     
-    // maximum number of frames possible
+    // maximum number of frames processed in parallel
     public static final int MAX_FRAMES = 2;
     
     // frame cannot be processed, it is not yet ready
@@ -136,16 +136,7 @@ public class Frame implements Runnable {
     protected Timer timer;
     
     // wireframe state for enforcing wireframe rendering
-    private WireframeState wireState;
-    
-    /**
-     * Simply an easy way to get at timer.getTimePerFrame(). Also saves time so
-     * you don't call it more than once per frame.
-     */
-    //protected float tpf;
-    
-    // the main renderer
-    //private Renderer renderer;
+    private WireframeState wireState;  
     
     // the list of usable culler threads
     protected FastList<Thread> freethread = new FastList<Thread>();
@@ -192,19 +183,7 @@ public class Frame implements Runnable {
     public int getFrameId() {
         return frameId;
     }
-    
-    /*
-    public long getFrameCount() {
-        return frameCount;
-    }
-     */
-    
-    /*
-    public void setRenderer(Renderer r) {
-        this.renderer = r;
-    }
-     */
-    
+        
     public ViewCamera getCamera() {
         return camera;
     }
@@ -221,15 +200,16 @@ public class Frame implements Runnable {
         return app;
     }
     
-    
-    
     /**
      * This is used to display print text.
      */
     protected StringBuffer updateBuffer = new StringBuffer( 30 );
 
+    /**
+     * Calls the renderpath, to create the renderpasses which will be used
+     * to render the current frame.
+     */
     protected void createDefaultPasses() {
-        
         // create passes
         if(app.renderPath!=null)
             app.renderPath.createDefaultPasses(this);
