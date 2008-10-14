@@ -59,7 +59,7 @@ public class Config {
     // used desing path?, should be false for distribution
     public boolean p_use_design_path = true;
     // the path to unconverted designed resources
-    public String design_path = System.getProperty("user.dir")+"/dev";   //"C:/temp/xshift3"; //C:/temp/xshift_work/dev";
+    public String design_path = System.getProperty("user.dir")+"/dev";
     
     // use memory cache when extracting from archive files?
     // use resource packs for resource loading

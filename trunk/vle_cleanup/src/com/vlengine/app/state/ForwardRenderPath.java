@@ -99,6 +99,11 @@ public class ForwardRenderPath extends RenderPath {
         return alpha;
     }
     
+    /**
+     * Gets called each frame, the task of this method is to fill the Frame-s
+     * renderpass list with the renderpasses.
+     * @param f
+     */
     public void createDefaultPasses(Frame f) {
         if(fb==null) {
             if(app.conf.graphPostprocess) {
