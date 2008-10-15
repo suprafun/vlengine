@@ -1,10 +1,33 @@
 /*
- * Camera.java
- * 
- * Created on 2007.10.23., 22:58:41
- * 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2008 jMonkeyEngine, VL Engine
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are
+ * met:
+ *
+ * * Redistributions of source code must retain the above copyright
+ *   notice, this list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ *
+ * * Neither the name of 'VL Engine' nor the names of its contributors 
+ *   may be used to endorse or promote products derived from this software 
+ *   without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+ * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package com.vlengine.renderer;
@@ -15,12 +38,10 @@ import com.vlengine.math.Plane;
 import com.vlengine.math.Quaternion;
 import com.vlengine.math.Vector2f;
 import com.vlengine.math.Vector3f;
-import com.vlengine.thread.Context;
-import com.vlengine.thread.LocalContext;
 import java.util.logging.Logger;
 
 /**
- *
+ * Camera used in the scene or by renderasses
  * @author vear
  */
 
@@ -894,17 +915,9 @@ public class ViewCamera extends Camera {
             updateModelViewMatrix = false;
         }
         if ( updateProjectionMatrix ) {
-            // calculateprojection matrix
-            
-            // use as tmp variable
-            //if(cropMatrix!=null) {
-            //    projection.set(cropMatrix);
-            //    tmp_mat.setFrustum(frustumLeft, frustumRight, frustumBottom, frustumTop, frustumNear, frustumFar);
-            //    projection.multLocal(tmp_mat);
-            //} else {
-                projection.setFrustum(frustumLeft, frustumRight, frustumBottom, frustumTop, frustumNear, frustumFar);
-                projection.transposeLocal();
-            //}
+            // calculate projection matrix
+            projection.setFrustum(frustumLeft, frustumRight, frustumBottom, frustumTop, frustumNear, frustumFar);
+            projection.transposeLocal();
             updateCalculatedMatrices = true;
             updateProjectionMatrix = false;
         }
@@ -1024,40 +1037,24 @@ public class ViewCamera extends Camera {
         float fMinY =  height;
 	float fMaxZ =  -1.0f;
         
-        /*
-        if(cropMatrix==null)
-            cropMatrix = new Matrix4f();
-        else
-            cropMatrix.loadIdentity();
-         */
-        
         // ensure that matrices are up to date
         checkViewProjection();
         
         // construct a dummy modelview matrix
         Matrix4f dmodelviewproj = new Matrix4f();
-        //dmodelviewproj.set(projection).multLocal(modelView);
-        
-        //dmodelviewproj.lookAt(location, Vector3f.ZERO, up);
         dmodelviewproj.set(modelViewProjection);
-        //dmodelviewproj.multLocal(this.projection);
 
         // find the min and max of transformed points
         for(int i = 0; i < points.length; i++) {
             tmp_quat.set(points[i].x, points[i].y, points[i].z, 1.0f);
             
             dmodelviewproj.mult(tmp_quat, tmp_quat);
-
-            //tmp_quat.set( worldPosition.x, worldPosition.y, worldPosition.z, 1 );
-            //modelViewProjection.mult( tmp_quat, tmp_quat );
             // We project the x and y values prior to determining the max values
             tmp_quat.x /= tmp_quat.w;
             tmp_quat.y /= tmp_quat.w;
             
-            //tmp_quat.multLocal( 1.0f / tmp_quat.w );
             tmp_quat.x = ( ( tmp_quat.x + 1 ) * ( viewPortRight - viewPortLeft ) / 2 + viewPortLeft ) * width;
             tmp_quat.y = ( ( tmp_quat.y + 1 ) * ( viewPortTop - viewPortBottom ) / 2 + viewPortBottom ) * height;
-            //tmp_quat.z = ( tmp_quat.z + 1 ) / 2;
 
             // We find the min and max values for X, Y and Z
             if(tmp_quat.x > fMaxX) fMaxX = tmp_quat.x;
@@ -1067,13 +1064,6 @@ public class ViewCamera extends Camera {
             if(tmp_quat.z > fMaxZ) fMaxZ = tmp_quat.z;
 	}
 
-        /*
-        fMaxX = FastMath.clamp(fMaxX, -1.0f, 1.0f);
-        fMaxY = FastMath.clamp(fMaxY, -1.0f, 1.0f);
-        fMinX = FastMath.clamp(fMinX, -1.0f, 1.0f);
-        fMinY = FastMath.clamp(fMinY, -1.0f, 1.0f);
-         */
-
         // clamp and scale to -1 1
         fMaxX = FastMath.clamp(fMaxX, 0, width);
         fMaxY = FastMath.clamp(fMaxY, 0, height);
@@ -1082,13 +1072,6 @@ public class ViewCamera extends Camera {
 
         // the new far plane
         frustumFar = fMaxZ + 1.0f + 1.5f;
-
-        /*
-	float fScaleX = 2.0f  / (fMaxX-fMinX);
-	float fScaleY = 2.0f  / (fMaxY-fMinY);
-	float fOffsetX = -0.5f * (fMaxX+fMinX) * fScaleX;
-	float fOffsetY = -0.5f * (fMaxY+fMinY) * fScaleY;
-         */
 
         // the biggest extent from the center of the screen
         // in the X directon
@@ -1132,12 +1115,6 @@ public class ViewCamera extends Camera {
         this.updateProjectionMatrix = true;
     }
 
-    /*
-    public void clearZoom() {
-        cropMatrix.loadIdentity();
-    }
-     */
-
     public ViewCamera copy(ViewCamera other) {
         other.coeffBottom[0] = this.coeffBottom[0];
         other.coeffBottom[1] = this.coeffBottom[1];
@@ -1168,17 +1145,6 @@ public class ViewCamera extends Camera {
         other.modelViewProjection.set(this.modelViewProjection);
         other.modelViewProjectionInverse.set(this.modelViewProjectionInverse);
         other.projection.set(this.projection);
-        /*
-        // copy the Zoom-in matrix
-        if(this.cropMatrix!=null) {
-            if(other.cropMatrix==null)
-                other.cropMatrix = new Matrix4f();
-            other.cropMatrix.set(cropMatrix);
-        } else {
-            if(other.cropMatrix!=null)
-                other.cropMatrix.loadIdentity();
-        }
-         */
         
         other.parallelProjection = this.parallelProjection;
         other.planeQuantity = this.planeQuantity;

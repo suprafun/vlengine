@@ -53,7 +53,6 @@ import com.vlengine.scene.state.lwjgl.LWJGLAlphaTestState;
 import com.vlengine.scene.state.lwjgl.LWJGLShaderObjectsState;
 import com.vlengine.scene.state.lwjgl.LWJGLShaderParameters;
 import com.vlengine.scene.state.lwjgl.LWJGLTextureState;
-import com.vlengine.scene.state.shader.ShaderTexture;
 import com.vlengine.scene.state.shader.ShaderVariableFloat;
 import com.vlengine.scene.state.shader.ShaderVariableFloat2;
 import com.vlengine.scene.state.shader.ShaderVariableInt;
@@ -64,6 +63,8 @@ import com.vlengine.util.FastList;
  * SSAO pass is a post processing pass (like bloom)
  * it takes the depth buffer and color buffer, and overlays an estimation of
  * ambient occlusion shading onto the final image.
+ * Note: it is not a proper SSAO implementation, it is more like an outline pass,
+ * tho it does look good.
  * @author vear (Arpad Vekas)
  */
 public class SSAOPass extends RenderPass {

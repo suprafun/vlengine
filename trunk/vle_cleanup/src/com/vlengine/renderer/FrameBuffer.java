@@ -35,9 +35,7 @@ package com.vlengine.renderer;
 import com.vlengine.app.AppContext;
 import com.vlengine.image.Texture;
 import com.vlengine.renderer.lwjgl.LWJGLTextureRenderer;
-import com.vlengine.system.VleException;
 import com.vlengine.util.FastList;
-import java.util.EnumSet;
 
 /**
  * Class representing a framebuffer into which we can render
@@ -67,10 +65,9 @@ public class FrameBuffer {
     }
     
     protected AppContext app;
-    
-    // the renderer portraying the component setup we need
-    // either LWJGLRenderer in case of main screen buffer
-    // or the LWJGLTextureRender in case of FBO framebuffers
+
+    // the texture renderer if we are rendering to
+    // a texture, and not into the backbuffer
     protected TextureRenderer tRenderer;
     
     /**
@@ -99,9 +96,6 @@ public class FrameBuffer {
     
     // list of textures used when setting up the renderer
     FastList<Texture> textures = new FastList<Texture>();
-    
-    // is this framebuffer dirty
-    //protected boolean isDirty = true;
     
     // is this framebuffer currently active?
     protected boolean active = false;
@@ -138,8 +132,7 @@ public class FrameBuffer {
 
     public void setupBuffers() {
         if(mainDisplay) {
-            // we are the main display, use the main renderer
-            //renderer = app.display.getRenderer();
+            // we are the main display
             // and we dont need other thing to do
             
         } else {
@@ -174,8 +167,6 @@ public class FrameBuffer {
         if(active) {
             return;
         }
-        //ctx.pushRenderer();
-        //ctx.renderer = renderer;
 
         if(!mainDisplay) {
             // get the list of textures
@@ -189,25 +180,9 @@ public class FrameBuffer {
         } else {
             // force set FBO 0?
             
-        }
-        
-        /*
-        if(removed) {
-            FrameBuffer prevfb = ctx.fb;
-
-            // deactivate previous frambuffer
-            if(prevfb != null && prevfb != this) {
-                ctx.fb.deactivate(ctx, false);
-            }
-            ctx.pushFrameBuffer(prevfb);
-        }
-         */       
+        }    
         active = true;
     }
-    
-    //public void deactivate(RenderContext ctx) {
-    //    deactivate(ctx, true);
-    //}
 
     public void deactivate(RenderContext ctx) {
         if(!active) {
@@ -216,17 +191,6 @@ public class FrameBuffer {
         if(!mainDisplay) {
             tRenderer.endRender();
         }
-        //ctx.popRenderer();
-        /*
-        if(setPrev) {
-            ctx.fb = ctx.popFrameBuffer();
-            while(ctx.fb == this)
-                ctx.fb = ctx.popFrameBuffer();
-            if(ctx.fb != null)
-                ctx.fb.activate(ctx, false);
-            removed = true;
-        }
-         */
         active = false;
     }
             

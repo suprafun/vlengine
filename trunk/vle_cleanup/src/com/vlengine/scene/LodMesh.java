@@ -38,9 +38,6 @@ package com.vlengine.scene;
 
 import com.vlengine.app.frame.Frame;
 import com.vlengine.bounding.BoundingVolume;
-import com.vlengine.bounding.CollisionTreeManager;
-import com.vlengine.intersection.CollisionResults;
-import com.vlengine.intersection.PickResults;
 import com.vlengine.math.Transform;
 import com.vlengine.math.Vector3f;
 import com.vlengine.renderer.CullContext;
@@ -134,21 +131,6 @@ public class LodMesh extends Spatial {
         return lodList.get(lod).get(index);
     }
 
-    /**
-     * Swap the places of two batches in this Geometry
-     * @param index1 the first batch index
-     * @param index2 the second batch index
-     */
-    /*
-    public void swapBatches(int index1, int index2) {
-        TriBatch b2 =  batchList.get(index2);
-        TriBatch b1 =  batchList.remove(index1);
-        batchList.add(index1, b2);
-        batchList.remove(index2);
-        batchList.add(index2, b1);
-    }
-     */
-    
     /**
      * returns the number of batches contained in this geometry.
      * 

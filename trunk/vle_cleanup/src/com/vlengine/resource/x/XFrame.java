@@ -51,7 +51,5 @@ public class XFrame {
     
     // the bone related to this
     public Bone bone;
-    //public int numWeights;
-    //public int[] vertIndices;
 
 }

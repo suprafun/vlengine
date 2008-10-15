@@ -37,8 +37,6 @@
 package com.vlengine.scene;
 
 import com.vlengine.bounding.BoundingVolume;
-import com.vlengine.intersection.CollisionResults;
-import com.vlengine.intersection.PickResults;
 import com.vlengine.light.Light;
 import com.vlengine.scene.batch.LightBatch;
 
