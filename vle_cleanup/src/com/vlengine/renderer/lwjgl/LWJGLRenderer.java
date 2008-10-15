@@ -36,7 +36,6 @@
 
 package com.vlengine.renderer.lwjgl;
 
-import com.vlengine.image.Texture;
 import com.vlengine.math.FastMath;
 import com.vlengine.math.Quaternion;
 import com.vlengine.math.Transform;
@@ -50,7 +49,6 @@ import com.vlengine.renderer.RenderContext;
 import com.vlengine.renderer.VBOAttributeInfo;
 import com.vlengine.renderer.ViewCamera;
 import com.vlengine.renderer.material.Material;
-import com.vlengine.renderer.material.ShaderKey;
 import com.vlengine.scene.LodMesh;
 import com.vlengine.scene.Node;
 import com.vlengine.scene.Renderable;
@@ -494,34 +492,6 @@ public class LWJGLRenderer extends Renderer {
         GL11.glColor4f(red, green, blue, alpha);
     }
 
-    public void applyDefaultStates() {
-        RenderState[] states = ctx.defaultStateList;
-
-        /*
-        // first apply the shader parameters
-        GLSLShaderParameters shaderParams = (GLSLShaderParameters)(ctx.enforcedStateList[RenderState.RS_GLSL_SHADER_PARAM] != null ? ctx.enforcedStateList[RenderState.RS_GLSL_SHADER_PARAM] : states[RenderState.RS_GLSL_SHADER_PARAM]);
-        GLSLShaderObjectsState shaderState = (GLSLShaderObjectsState)(ctx.enforcedStateList[RenderState.RS_GLSL_SHADER_OBJECTS] != null ? ctx.enforcedStateList[RenderState.RS_GLSL_SHADER_OBJECTS] : states[RenderState.RS_GLSL_SHADER_OBJECTS]);
-        if (shaderState != null && shaderState != ctx.defaultStateList[RenderState.RS_GLSL_SHADER_OBJECTS]
-        && shaderParams != null && shaderParams != ctx.defaultStateList[RenderState.RS_GLSL_SHADER_PARAM] ) {
-        // there is both a shader and shader parameters, apply the parameters
-        shaderState.apply(ctx);
-        shaderParams.apply(ctx);
-        }
-         */
-
-        RenderState tempState = null;
-        for (int i = 0; i < states.length; i++) {
-            tempState = ctx.enforcedStateList[i] != null ? ctx.enforcedStateList[i]
-                    : states[i];
-
-            if (tempState != null) {
-                if (tempState != ctx.currentStates[i]) {
-                    tempState.apply(ctx);
-                }
-            }
-        }
-    }
-
     @Override
     public void draw(TriBatch batch) {
         BaseGeometry g = batch.getModel();
@@ -561,7 +531,6 @@ public class LWJGLRenderer extends Renderer {
             }
         }
 
-        //if (!generatingDisplayList) applyStates(batch.states, batch);
         doTransforms(batch, g);
         int mode = g.getMode();
         int glMode;
@@ -628,22 +597,19 @@ public class LWJGLRenderer extends Renderer {
                 idb.clear();
             }
         } else {
-            int indexVboPos = idb.getVBOInfo().vboPointer;
             if (capabilities.GL_EXT_compiled_vertex_array) {
                 EXTCompiledVertexArray.glLockArraysEXT(0, g.getNumVertex());
                 // TODO: was 0
             }
             if (idb instanceof IndexBufferInt) {
-                GL11.glDrawElements(glMode, g.getNumIndex(), GL11.GL_UNSIGNED_INT, indexVboPos + g.getStartIndex()*4);
+                GL11.glDrawElements(glMode, g.getNumIndex(), GL11.GL_UNSIGNED_INT, g.getStartIndex()*4);
             } else {
-                GL11.glDrawElements(glMode, g.getNumIndex(), GL11.GL_UNSIGNED_SHORT, indexVboPos + g.getStartIndex()*2);
+                GL11.glDrawElements(glMode, g.getNumIndex(), GL11.GL_UNSIGNED_SHORT, g.getStartIndex()*2);
             }
             if (capabilities.GL_EXT_compiled_vertex_array) {
                 EXTCompiledVertexArray.glUnlockArraysEXT();
             }
         }
-
-        //postdrawGeometry(batch);
 
         undoTransforms(batch, g);
         if (!generatingDisplayList) {
@@ -661,13 +627,10 @@ public class LWJGLRenderer extends Renderer {
         } else {
             GL11.glCallList(g.getDisplayListID());
         }
-        // invalidate line record as we do not know the line state anymore
-        //((LineRecord) DisplaySystem.getDisplaySystem().getCurrentContext().getLineRecord()).invalidate();
-        // invalidate "current arrays"
         reset();
     }
     
-    // with composite geometry, we only have a number of vertex arays and a single index buffer
+    // with composite geometry, we have a number of vertex arays and a single index buffer
     public void prepVBO(Geometry g) {
         if (!supportsVBO() || g.getVBOMode() == BaseGeometry.VBO_NO) {
             return;
@@ -846,9 +809,8 @@ public class LWJGLRenderer extends Renderer {
                 //vbf.position(arrayPointer);
                 
             } else {
-                VBOAttributeInfo vboinfo = vtx.getVBOInfo();
                 // the VBO pointer (counted in bytes)
-                vboPointer = vboinfo.vboPointer + ((long)vf.getBytes() * startVertex.get(j)); //t.getStartVertex();
+                vboPointer = ((long)vf.getBytes() * startVertex.get(j));
             }
 
             if (vboid != -1) {
@@ -1155,27 +1117,13 @@ public class LWJGLRenderer extends Renderer {
         }
     }
 
-    // inherited documentation
     public int createDisplayList(TriBatch t) {
         int listID = GL11.glGenLists(1);
 
         generatingDisplayList = true;
-        //RenderState oldTS = ctx.currentStates[RenderState.RS_TEXTURE];
-        //ctx.currentStates[RenderState.RS_TEXTURE] = g.states[RenderState.RS_TEXTURE];
         GL11.glNewList(listID, GL11.GL_COMPILE);
         draw(t);
-        /*
-        if (g instanceof TriangleBatch)
-        draw((TriangleBatch)g);
-        else if (g instanceof QuadBatch)
-        draw((QuadBatch)g);
-        else if (g instanceof LineBatch)
-        draw((LineBatch)g);
-        else if (g instanceof PointBatch)
-        draw((PointBatch)g);
-         */
         GL11.glEndList();
-        //context.currentStates[RenderState.RS_TEXTURE] = oldTS;
         generatingDisplayList = false;
 
         return listID;
@@ -1395,19 +1343,6 @@ public class LWJGLRenderer extends Renderer {
 
             if (s instanceof Node) {
                 Node n = (Node) s;
-                // extract effect from node
-                /*
-                FastList<SceneEffect> eff = n.getEffects();
-                if (eff != null) {
-                    for (int j = 0,  mj = eff.size(); j < mj; j++) {
-                        SceneEffect e = eff.get(j);
-                        // put it into the list so we can undo the effect later
-                        list.add(e);
-                        // do the effect
-                        e.doEffect(stx);
-                    }
-                }
-                 */
                 // extract node children
                 for (int i = 0,  mx = n.getQuantity(); i < mx; i++) {
                     list.add(n.getChild(i));
@@ -1440,11 +1375,7 @@ public class LWJGLRenderer extends Renderer {
                 }
 
                 r.draw(ctx);
-            } /*else if (s instanceof SceneEffect) {
-                // effects from list need to be undone
-                SceneEffect e = (SceneEffect) s;
-                e.undoEffect(stx);
-            }*/
+            }
 
             // recalculate list size
             lss = list.size();

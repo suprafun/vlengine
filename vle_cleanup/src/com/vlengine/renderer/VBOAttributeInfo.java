@@ -37,20 +37,12 @@ import java.nio.ByteBuffer;
 
 /**
  * Data for a single vertex attribute VBO placement
- * 
+ * TODO: move fields to VertexBuffer, no need to have it here
  * @author vear (Arpad Vekas)
  */
 public class VBOAttributeInfo {
-    // use VBO for this vertex attribute
-    
-    // no need for this flag, if ahte VBOinfo is attached, we assume, we will be using VBO
-    //public boolean useVBO = false;
     // the ID of the VBO
     public int vboID = -1;
-    // the pointer for start of data inside the VBO
-    public int vboPointer = 0;
-    // stride value inside VBO
-    public int vboStride = 0;
     
     // is it a mapped buffer
     public ByteBuffer mappedBuffer = null;
