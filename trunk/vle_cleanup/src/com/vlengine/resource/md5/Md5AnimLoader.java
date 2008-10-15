@@ -53,6 +53,7 @@ import java.util.logging.Logger;
 
 /**
  * Loads an Md5 animation file into BoneAnimation class
+ * TODO: Animations are loaded, but the animation is not implemented
  * @author vear (Arpad Vekas)
  */
 public class Md5AnimLoader {

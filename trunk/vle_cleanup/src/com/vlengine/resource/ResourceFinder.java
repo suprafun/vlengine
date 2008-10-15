@@ -44,12 +44,9 @@ import com.vlengine.scene.animation.MD5.MD5BoneAnimation;
 import com.vlengine.resource.model.Model;
 import com.vlengine.resource.model.ModelPack;
 import com.vlengine.resource.obj.ObjMtlLib;
-import com.vlengine.resource.obj.ObjModel;
 import com.vlengine.util.FastList;
 import com.vlengine.util.xml.Element;
 import java.io.File;
-import java.io.InputStream;
-import java.net.URL;
 import java.nio.ByteBuffer;
 import java.util.Comparator;
 import java.util.logging.Logger;
@@ -80,8 +77,6 @@ public class ResourceFinder {
 
     /** the material libraryes, linked together */
     private MaterialLib matlib;
-    // the items registryes
-    //private FastList<ObjectStore> items;
     // the object creation pipeline
     private ResourceCreator roc;
     
@@ -235,24 +230,6 @@ public class ResourceFinder {
         }
         // sort resource folders by length of their id
         folders.sort(folderSorter);
-        
-        // enumerate and parse all the items definitions
-        /*
-        if(items==null)
-            items=new FastList();
-        items.clear();
-        // loop trough all the folders, and parse all the item definition files
-        for(int i=0, mx=folders.size(); i<mx; i++) {
-            ResourceFolder fol = folders.get(i);
-            if(fol.requestFile(ObjectStore.OBJECT_TYPELIST)) {
-                // folder contains a def file, get it
-                ObjectStore st = (ObjectStore) getResource(ObjectStore.OBJECT_TYPELIST, RESOURCE_TYPELIST, ParameterMap.MAP_EMPTY, fol);
-                if( st != null ) {
-                    items.add(st);
-                }
-            }
-        }
-         */
     }
 
     /**
@@ -276,16 +253,6 @@ public class ResourceFinder {
         fol.setMod(mod);
         fol.setResourcePath(folder);
         folders.add( fol );
-        /*
-        // read in the list of game objects from the folder
-        if(fol.requestFile(ObjectStore.OBJECT_TYPELIST)) {
-                // folder contains a def file, get it
-                ObjectStore st = (ObjectStore) getResource(ObjectStore.OBJECT_TYPELIST, RESOURCE_TYPELIST, ParameterMap.MAP_EMPTY, fol);
-                if( st != null ) {
-                    items.add(st);
-                }
-            }
-         */
     }
     
     public FastList<ResourceFolder> getFolderList() {

@@ -215,7 +215,7 @@ public class Plane {
      */
     @Override
     public String toString() {
-        return "com.vtte.math.Plane [Normal: " + normal + " - Constant: "
+        return "com.vlengine.math.Plane [Normal: " + normal + " - Constant: "
                 + constant + "]";
     }
 }

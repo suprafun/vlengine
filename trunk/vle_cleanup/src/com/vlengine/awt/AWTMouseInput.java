@@ -37,8 +37,6 @@
 package com.vlengine.awt;
 
 import java.awt.Canvas;
-import java.awt.Component;
-import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -49,7 +47,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.vlengine.image.Image;
-import com.vlengine.input.InputSystem;
 import com.vlengine.input.MouseInput;
 import com.vlengine.util.BitSet;
 
@@ -70,10 +67,6 @@ public class AWTMouseInput extends MouseInput implements MouseListener, MouseWhe
     private boolean dragOnly = false;
     private BitSet buttons = new BitSet(3);
 
-    //private Point absPoint = new Point();
-    //private Point lastPoint = new Point(Integer.MIN_VALUE, Integer.MIN_VALUE);
-    //private Point currentDeltaPoint = new Point();
-    //private Point deltaPoint = new Point();
     private boolean virgin = true;
     private int dx, dy;
     private int lastX, lastY;
@@ -84,16 +77,6 @@ public class AWTMouseInput extends MouseInput implements MouseListener, MouseWhe
      * would need to synchronize insertions.
      */
     private List<MouseEvent> swingEvents = new LinkedList<MouseEvent>();
-    /**
-     * x position of last event that was processed by {@link #update}
-     */
-    //private int lastEventX;
-    /**
-     * y position of last event that was processed by {@link #update}
-     */
-    //private int lastEventY;
-
-    //private Component deltaRelative;
 
     public AWTMouseInput() {
         ;
@@ -139,32 +122,10 @@ public class AWTMouseInput extends MouseInput implements MouseListener, MouseWhe
 
     public int getXDelta() {
         return dx;
-        /*
-        if (deltaRelative != null) {
-            if (!enabled) {
-                return 0;
-            }
-            int rVal = (deltaRelative.getWidth() / 2) - absPoint.x;
-            return (int)(rVal * -0.01f);
-        } 
-             
-        return deltaPoint.x;
-         */
     }
 
     public int getYDelta() {
         return dy;
-        /*
-        if (deltaRelative != null) {
-            if (!enabled) {
-                return 0;
-            }
-            int rVal = (deltaRelative.getHeight() / 2) - absPoint.y;
-            return (int)(rVal * 0.05f);
-        } 
-            
-        return deltaPoint.y;        
-         */
     }
 
     public int getXAbsolute() {
@@ -214,12 +175,8 @@ public class AWTMouseInput extends MouseInput implements MouseListener, MouseWhe
             swingEvents.clear();
         }
 
-        //lastEventX = x;
-        //lastEventY = y;
         wheelDelta = currentWheelDelta;
         currentWheelDelta = 0;
-        //deltaPoint.setLocation(currentDeltaPoint);
-        //currentDeltaPoint.setLocation(0,0);
     }
 
     public void setCursorVisible(boolean v) {
@@ -253,12 +210,6 @@ public class AWTMouseInput extends MouseInput implements MouseListener, MouseWhe
     public int getButtonCount() {
         return 3;
     }
-
-    /*
-    public void setRelativeDelta(Component c) {
-        deltaRelative = c;
-    }
-     */
 
     /**
      * @return Returns the enabled.
@@ -326,12 +277,6 @@ public class AWTMouseInput extends MouseInput implements MouseListener, MouseWhe
         if (!enabled) {
                 return;
         }
-        /*
-        //currentDeltaPoint.setLocation(0,0);
-        if (deltaRelative != null) {
-            absPoint.setLocation(deltaRelative.getWidth() >> 1, deltaRelative.getHeight() >> 1);
-        }
-         */
         buttons.set(getJMEButtonIndex( arg0 ), false);
         swingEvents.add( arg0 );
     }
@@ -370,17 +315,6 @@ public class AWTMouseInput extends MouseInput implements MouseListener, MouseWhe
         if (!enabled) {
                 return;
         }
-
-        /*
-        absPoint.setLocation(arg0.getPoint());
-        if (lastPoint.x == Integer.MIN_VALUE) {
-            lastPoint.setLocation(absPoint.x, absPoint.y);
-        }
-        //currentDeltaPoint.x = absPoint.x-lastPoint.x;
-        //currentDeltaPoint.y = -(absPoint.y-lastPoint.y);
-        lastPoint.setLocation(arg0.getPoint());
-         */
-
         swingEvents.add( arg0 );
     }
 

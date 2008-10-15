@@ -38,7 +38,6 @@ import com.vlengine.math.FastMath;
 import com.vlengine.math.Matrix4f;
 import com.vlengine.math.Quaternion;
 import com.vlengine.math.Vector3f;
-import com.vlengine.model.BaseGeometry;
 import com.vlengine.model.Geometry;
 import com.vlengine.resource.model.Model;
 import com.vlengine.resource.model.ModelPart;

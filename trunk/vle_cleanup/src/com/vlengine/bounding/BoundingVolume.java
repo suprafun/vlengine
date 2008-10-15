@@ -43,7 +43,6 @@ import com.vlengine.math.Ray;
 import com.vlengine.math.Vector3f;
 import com.vlengine.model.Geometry;
 import com.vlengine.util.geom.VertexBuffer;
-import java.nio.FloatBuffer;
 
 /**
  *

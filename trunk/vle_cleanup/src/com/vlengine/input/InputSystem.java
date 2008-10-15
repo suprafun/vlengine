@@ -34,12 +34,11 @@ package com.vlengine.input;
 
 import com.vlengine.app.AppContext;
 import com.vlengine.util.FastList;
-import java.lang.reflect.Method;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Dispatches input events to listeners
  * @author vear (Arpad Vekas)
  */
 public class InputSystem {
@@ -48,13 +47,6 @@ public class InputSystem {
     
     FastList<KeyBindingSet> keyBindingSet=new FastList<KeyBindingSet>();
     
-    //StringBuffer command = new StringBuffer();
-    
-    // keybindingset[] ( different sets, which can be activated/deactivated )
-    //  isActive
-    //  keybinding[]   ( for each key, what action it triggers )
-    //  commands       ( for each action, what keys activate it, and what method should be called )
-
     protected AppContext app;
 
     public InputSystem(AppContext app) {
@@ -98,27 +90,12 @@ public class InputSystem {
             if( kbs.isEnabled() ) {
                 String ks = kbs.getKeyCommand(keyCode);
                 if( ks != null ) {
-                        // get the command string
-                    /*
-                        int sp = ks.indexOf(" ");
-                        if (sp == -1) {
-                            sp = ks.length();
-                        }
-                        command.setLength(0);
-                        command.append("handle_");
-                        command.append(ks.substring(0, sp));
-                    
-                        String ps = ks.substring(sp);
-                     */
                         // get the object handling the command
                         InputListener handler = kbs.getHandler(keyCode);
                     try {
                         // call the appropriate method in inputHandler
-                        //Method mth = kbs.getMethod(keyCode);
-                                //handler.getClass().getMethod(ks, handlerSig);
                         if( handler!=null ) {
                             handler.handleInput(null, c, keyCode, pressed);
-                            //mth.invoke(handler, null, c, keyCode, pressed);
                             return true;
                         }
                     } catch (Exception ex) {

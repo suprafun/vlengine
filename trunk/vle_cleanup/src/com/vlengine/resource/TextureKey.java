@@ -36,7 +36,9 @@ import com.vlengine.image.Texture;
 import com.vlengine.math.Vector3f;
 
 /**
- *
+ * Class representing all the parameters of a texture, it is
+ * used to find already created textures, so that the same
+ * texture can be returned from the cache.
  * @author vear (Arpad Vekas)
  */
 public class TextureKey {

@@ -44,9 +44,7 @@ package com.vlengine.input;
  * for specific APIs. <br>
  * The status of spcific keys can be queried via the {@link #isKeyDown}
  * method. For each key that is pressed or released an event is generated which
- * can be received by a {@link KeyInputListener}, these are subsribed via
- * {@link #addListener(KeyInputListener)}. Handling of events is done inside the
- * {@link #update} method.
+ * can be received by the InputSystem and dispatched to a {@link InputListener}.
  *
  * @author Mark Powell
  * @version $Id: KeyInput.java,v 1.24 2007/03/06 15:08:50 nca Exp $

@@ -44,7 +44,6 @@ import com.vlengine.input.KeyInput;
 import com.vlengine.input.MouseInput;
 import com.vlengine.intersection.CollisionData;
 import com.vlengine.intersection.CollisionResults;
-import com.vlengine.intersection.IntersectionRecord;
 import com.vlengine.intersection.PickData;
 import com.vlengine.intersection.PickResults;
 import com.vlengine.math.FastMath;
@@ -55,12 +54,12 @@ import com.vlengine.math.Vector3f;
 import com.vlengine.scene.CameraNode;
 import com.vlengine.scene.SetNode;
 import com.vlengine.scene.Spatial;
-import com.vlengine.scene.animation.Action;
-import com.vlengine.scene.animation.x.XBoneAnimationController;
 import com.vlengine.util.FastList;
 
 /**
- *
+ * A third-person camera and character controller
+ * TODO: remove the sub-optimal collision detection stuff
+ * and do collision detection with a proper physics library
  * @author vear (Arpad Vekas)
  */
 public class CharacterController extends Controller {

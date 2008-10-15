@@ -50,7 +50,6 @@ import com.vlengine.scene.state.lwjgl.LWJGLTextureState;
 import com.vlengine.util.TextureManager;
 import com.vlengine.util.xml.Element;
 import com.vlengine.util.xml.XMLFile;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.ByteBuffer;
@@ -58,15 +57,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Class responsible for loading/converting specific file formats
+ * TODO: this should be probably enhanced to work like a plugin system.
+ * Takes a list of possible extensions, and the plugin class which does the
+ * conversion.
  * @author vear (Arpad Vekas)
  */
 public class ResourceCreator {
 
     public static final Logger log = Logger.getLogger(ResourceCreator.class.getName());
     
-    // loader for collada models
-    //private DaeLoader cLoader = new DaeLoader();
     // loader for obj models
     private ObjLoader oLoader;
     // loader for obj materials

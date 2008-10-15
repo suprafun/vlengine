@@ -42,13 +42,11 @@ import com.vlengine.renderer.RenderContext;
 import com.vlengine.scene.Renderable;
 import com.vlengine.util.FastList;
 import com.vlengine.util.IntList;
-import com.vlengine.util.geom.BufferUtils;
 import com.vlengine.util.geom.VertexAttribute;
 import com.vlengine.util.geom.VertexBuffer;
 import com.vlengine.util.geom.VertexFormat;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
-import org.lwjgl.opengl.ARBBufferObject;
 
 /**
  * Class that perform software skinning on a single batch
@@ -170,7 +168,7 @@ public class XSoftSkinner extends Geometry implements XAnimatedItem {
         FloatBuffer nb = model.getAttribBuffer(VertexAttribute.USAGE_NORMAL).getDataBuffer();
         nb.rewind();
         
-        // TODO: this may need to be reworked to geometryiterators
+        // TODO: this may need to be reworked to vertexiterators
         // get matrix weights
         FloatBuffer wb = model.getAttribBuffer(VertexAttribute.USAGE_WEIGHTS).getDataBuffer();
         wb.rewind();
@@ -268,11 +266,13 @@ public class XSoftSkinner extends Geometry implements XAnimatedItem {
         // if the mesh needs to be updated, update it
         if(needsRefresh) {
             // allocate ogl memory if its not yet allocated
+            // map the buffer to java memory too
             mapBuffers(ctx);
             
             // do the actual skinning (generate vertices)
             skinMesh();
             
+            // release the buffers, so OGL can use them during rendering
             unMapBuffers(ctx);
 
             // map a buffer from OpenGL

@@ -38,13 +38,10 @@ package com.vlengine.scene;
 
 import com.vlengine.bounding.BoundingBox;
 import com.vlengine.image.Texture;
-import com.vlengine.math.Quaternion;
-import com.vlengine.math.Vector3f;
 import com.vlengine.model.BaseGeometry;
 import com.vlengine.model.Quad;
 import com.vlengine.renderer.RenderQueue;
 import com.vlengine.renderer.material.Material;
-import com.vlengine.renderer.pass.RenderPass;
 import com.vlengine.scene.batch.TriBatch;
 import com.vlengine.scene.state.LightState;
 import com.vlengine.scene.state.RenderState;

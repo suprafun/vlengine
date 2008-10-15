@@ -32,15 +32,12 @@
 
 package com.vlengine.scene.animation.MD5;
 
-import com.vlengine.scene.animation.Action;
 import com.vlengine.scene.animation.BoneAnimationController;
-import com.vlengine.scene.control.Controller;
 import com.vlengine.scene.control.UpdateContext;
-import com.vlengine.util.FastList;
 
 /**
  * Controller that runs animations based on BoneAnimation and WeightedGeometry
- * 
+ * TODO: implement
  * @author vear (Arpad Vekas)
  */
 public abstract class MD5BoneAnimationController extends BoneAnimationController {

@@ -38,10 +38,6 @@ package com.vlengine.scene;
 
 import com.vlengine.app.frame.Frame;
 import com.vlengine.bounding.BoundingVolume;
-import com.vlengine.bounding.CollisionTreeManager;
-import com.vlengine.intersection.CollisionResults;
-import com.vlengine.intersection.PickResults;
-import com.vlengine.math.Ray;
 import com.vlengine.math.Transform;
 import com.vlengine.renderer.CullContext;
 import com.vlengine.renderer.RenderQueue;
@@ -49,7 +45,6 @@ import com.vlengine.renderer.pass.RenderPass;
 import com.vlengine.scene.batch.TriBatch;
 import com.vlengine.scene.control.UpdateContext;
 import com.vlengine.util.FastList;
-import com.vlengine.util.IntList;
 
 /**
  *

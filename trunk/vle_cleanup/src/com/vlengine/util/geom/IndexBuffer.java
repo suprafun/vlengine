@@ -146,9 +146,6 @@ public abstract class IndexBuffer {
         return store;
     }
 
-    public IndexBuffer() {
-        
-    }
     
     public abstract void clear();
 

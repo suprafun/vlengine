@@ -33,7 +33,8 @@
 package com.vlengine.input;
 
 /**
- * Input handler for input events
+ * Input listener for input events, implementing classes receive
+ * input events
  * @author vear (Arpad Vekas)
  */
 public interface InputListener {

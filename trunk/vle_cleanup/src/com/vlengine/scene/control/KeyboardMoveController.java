@@ -41,7 +41,7 @@ import com.vlengine.scene.Spatial;
 import com.vlengine.system.VleException;
 
 /**
- *
+ * Class for controlling a flying camera with WASD keys
  * @author vear (Arpad Vekas)
  */
 public class KeyboardMoveController extends Controller {

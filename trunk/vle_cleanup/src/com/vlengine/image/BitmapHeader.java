@@ -43,6 +43,7 @@ import java.io.IOException;
 /**
  * <code>BitmapHeader</code> defines header information about a bitmap (BMP) image
  * file format.
+ * TODO: fix that 24 bit images are not expanded to 32 bits
  * @author Mark Powell
  * @version 
  */

@@ -108,6 +108,8 @@ public class ControllerAnimationPack {
 
     // TODO: remove this to load from XML definition file
     public void setupPC1Animations() {
+        // this is hard-coded animation data of a character model
+        
             // setup the animation actions
         Animation as;
         

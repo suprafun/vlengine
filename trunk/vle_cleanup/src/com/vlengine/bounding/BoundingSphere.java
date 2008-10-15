@@ -45,9 +45,7 @@ import com.vlengine.thread.LocalContext;
 import com.vlengine.util.geom.BufferUtils;
 import com.vlengine.util.geom.VertexAttribute;
 import com.vlengine.util.geom.VertexBuffer;
-import java.io.IOException;
 import java.nio.FloatBuffer;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 

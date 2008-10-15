@@ -47,34 +47,27 @@ import java.util.logging.Logger;
 
 /**
  * This class hold a reference to a folder containing resources loadable by
- * the engine. Note that a virtual folder can be 3 actual filesystem folders:
+ * the engine. Note that a virtual folder can be 2 actual filesystem folders:
  * The "design" or "dev" path is the place where artists place their work,
  * this folder is taken as source for unconverted resources, which are converted
  * using the ResourceCreator class.
- * 
- * The "resource" or "res" path is an (possibly ZIP) archive file, containing
- * resources meant for release.
  * 
  * The "cache" path (when switched on in Config) hold resources ready to be loaded
  * by the engine. Its a helper folder during development (or runtime, when
  * converted resources are machine specific). 
  * 
  * If a resource can be loaded from the cache, it will be loaded from there,
- * second is the resource archive, and the third place where the engine looks
- * is the "dev" folder.
+ * if not found it will try to load from the "dev" folder.
  * 
- * All these 3 folders are represented by a single ResourceFolder. The engine
- * create ResourceFolder classes for all subfolders of Config.res_path,
- * Config.cache_path, and Config.dev_path.
+ * All these folders are represented by a single ResourceFolder. The engine
+ * create ResourceFolder classes for all subfolders of
+ * Config.cache_path and Config.dev_path.
  * 
  * @author vear (Arpad Vekas)
  */
 public class ResourceFolder {
     private static final Logger logger = Logger.getLogger(ResourceFolder.class.getName());
    
-    //public static final String PREPARED = "/prepared";
-    //public static final String CACHED = "/cached";
-    
     // the unique id for this folder
     private String id;
     
@@ -158,16 +151,6 @@ public class ResourceFolder {
     public String getCachePathFull() {
         return conf.cache_path + "/" + cachepath;
     }
-    
-    /*
-    public String getCachePreparedFull() {
-        return conf.cache_path + "/" + cachepath + PREPARED;
-    }
-    
-    public String getCacheCachedFull() {
-        return conf.cache_path + "/" + cachepath + CACHED;
-    }
-     */
     
     public void setDesignPath(String desp) {
         this.designpath = desp;
@@ -253,7 +236,7 @@ public class ResourceFolder {
             for(int i=0, mx=allfiles.size(); i<mx; i++) {
                 String fl = allfiles.get(i);
                 if( designed.containsKey(fl)) {
-                    // we have the file in desinged aswell
+                    // we have the file in designed aswell
                     // TODO
                     // check if cached is older than the designed, delete
                     // check if prepared is older than the designed, delete
@@ -291,28 +274,10 @@ public class ResourceFolder {
         return cached.containsKey(nm);
     }
     
-    /*
-    public boolean isPrepared(String name) {
-        return prepared.containsKey(name);
-    }
-     */
-    
-    /*
-    public boolean isExtractable(String name) {
-        return extractor != null && extractor.containsFile(name.toLowerCase());
-    }
-    
-    public ByteBuffer extract(String name, ParameterMap params) {
-        return extractor.extract(name.toLowerCase());
-    }
-     */
-    
     public boolean isDesigned(String name) {
         return designed.containsKey(name.toLowerCase());
     }
 
-    //protected 
-    
     protected void savePrepared(String name, Object data ) {
         if( conf.p_createcache && data instanceof Buffer) {
             // save the file
@@ -390,14 +355,6 @@ public class ResourceFolder {
              //|| prepared.containsKey(name)
              )
                 return true;
-        /*
-        // check if PFF file contains the file
-        if( extractor != null ) {
-            if( extractor.containsFile(nm) ) {
-                return true;
-            }
-        }
-         */
         if( conf.p_use_design_path) {
             // check the design path
             return isDesigned(nm);

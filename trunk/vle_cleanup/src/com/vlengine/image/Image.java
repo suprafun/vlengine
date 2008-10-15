@@ -50,7 +50,7 @@ import java.util.Arrays;
  * byte buffer, and should be packed before creation of the image object.
  * @author Mark Powell
  * @author vear (Arpad Vekas) reworked for VL engine
- * @version $Id: Image.java,v 1.16 2007/03/06 15:07:50 nca Exp $
+ * 
  */
 public class Image {
 

@@ -32,9 +32,6 @@
 
 package com.vlengine.scene.animation;
 
-import com.vlengine.scene.animation.MD5.MD5BoneAnimation;
-import com.vlengine.util.FastList;
-
 /**
  * This class represents an animation action, these actions are created
  * and released as animations are started and finished. The proper way is to
@@ -45,29 +42,6 @@ import com.vlengine.util.FastList;
  * @author vear (Arpad Vekas)
  */
 public class Action {
-    
-    /*
-    protected static FastList<Action> free = new FastList<Action>();
-    
-    
-    public static Action getNew() {
-        if(free.size()>0) {
-            int idx = free.size() -1;
-            Action a = free.get(idx);
-            free.remove(idx);
-            return a;
-        } else
-            return new Action();
-    }
-    
-    public void release() {
-        id=-1;
-        time=0;
-        loop = LoopMode.StopAtEnd;
-        exclusiveGroup = 0;
-        free.add(this);
-    }
-     */
     
     // protected constructor
     public Action() {}

@@ -43,7 +43,10 @@ import java.util.Arrays;
 
 
 /**
- *
+ * Animation controller for bone animated models, one instance
+ * of the class is used for animation one model, but it can contain multiple
+ * batches with different use bones. All batches using the same bones
+ * are animated as a single item.
  * @author vear (Arpad Vekas)
  */
 public class XBoneAnimationController extends BoneAnimationController {
@@ -96,16 +99,6 @@ public class XBoneAnimationController extends BoneAnimationController {
     
     public void setAniamtionPack(XBoneAnimationPack pack) {
         animPack = pack;
-        // find the root none
-        /*
-        rootBone = null;
-        FastList<Bone> bones = animPack.getBones();
-        for(int i=0; i<bones.size() && rootBone == null; i++) {
-            Bone b = bones.get(i);
-            if(b!=null && b.parent==null)
-                rootBone = b;
-        }
-         */
         shouldUpdate = true;
     }
 
@@ -370,18 +363,6 @@ public class XBoneAnimationController extends BoneAnimationController {
         
        
         FastList<Bone> bones = animPack.bones;
-/*         
-        // fill the unrelated bones as zero matrix
-        for(int i=0; i<boneTransforms.length; i++) {
-            Matrix4f boneTrans = bones.get(i).frameMatrix;
-            if(boneTrans==null)
-                boneTransforms[i].zero();
-        }
-        
-        // go over and multiply bones transform with parents transforms
-        // starting with root bone
-        calcBoneFrameTransform(rootBone);
- */
 
         // do we need to update the items
         boolean updateItems = shouldUpdate;
@@ -417,111 +398,24 @@ public class XBoneAnimationController extends BoneAnimationController {
             }
             processNextFrame(a);
 
-            //boolean restart = true;
-            //while(restart) {
-            //    restart = false;
-                
-                
-                /*
-                boolean needupdate = false;
-                switch(a.action.loop) {
-                    case StopAtEnd : {
-                            // is it over the max frames in the animation?
-                            if(cf>=rangeStart+numFrames-1) {
-                                // remove this aniamtion
-                                activeAnim.remove(i);
-                                i--;
-                                continue;
-                            }
-                            if(a.currentFrame != a.anim.frames[cf]) {
-                                a.currentFrame = a.anim.frames[cf];
-                                needupdate = true;
-                            }
-                            if(a.nextFrame != a.anim.frames[nf]) {
-                                a.nextFrame = a.anim.frames[nf];
-                                needupdate = true;
-                            }
-                        } break;
-                    case ClampAtEnd : {
-                        if(cf>=rangeStart+numFrames-1) {
-                            cf = rangeStart+numFrames-1;
-                            if(a.currentFrame != a.anim.frames[cf]) {
-                                a.currentFrame = a.anim.frames[cf];
-                                needupdate = true;
-                            }
-                            if(a.nextFrame != null) {
-                                a.nextFrame = a.anim.frames[nf];
-                                needupdate = true;
-                            }
-                        } else {
-                            if(a.currentFrame != a.anim.frames[cf]) {
-                                a.currentFrame = a.anim.frames[cf];
-                                needupdate = true;
-                            }
-                            if(a.nextFrame != a.anim.frames[nf]) {
-                                a.nextFrame = a.anim.frames[nf];
-                                needupdate = true;
-                            }
-                        }
-                    } break;
-                    case RestartAtEnd : {
-                        cf = (cf-rangeStart)%numFrames + rangeStart;
-                        nf = (nf-rangeStart)%numFrames + rangeStart;
-                        if(a.currentFrame != a.anim.frames[cf]) {
-                            a.currentFrame = a.anim.frames[cf];
-                            needupdate = true;
-                        }
-                        if(a.nextFrame != a.anim.frames[nf]) {
-                            a.nextFrame = a.anim.frames[nf];
-                            needupdate = true;
-                        }
-                    } break;
-                    case ContinueNext : {
-                        if(cf>=rangeStart+numFrames-1) {
-                            // we finished, set to next animation, if we have one
-                            if(a.action.nextAction != null) {
-                                float residueTime = (frame - cf)/a.anim.frameRate;
-                                setAction(a, a.action.nextAction);
-                                a.sheduledTime += residueTime;
-                                restart = true;
-                                // TODO: we would need to transfer the offset we gained
-                                // to the next animation
-                            }
-                        } else {
-                            if(a.currentFrame != a.anim.frames[cf]) {
-                                a.currentFrame = a.anim.frames[cf];
-                                needupdate = true;
-                            }
-                            if(nf>=rangeStart+numFrames-1) {
-                                // we got the last frame from the old, and the first frame from the new animation
-                                float residueTime = (frame - nf)/a.anim.frameRate;
-                                setAction(nextAction, a.action.nextAction);
-                                nextAction.sheduledTime += residueTime;
-                            }
-                        }
-                    }
-                    
-                }
-                */
-                if(a.needUpdate) {
-                    a.needUpdate = false;
-                    if(a.currentFrame == null || a.nextFrame == null) {
-                        System.out.append("null anim");
-                    } else {
-                        for(int j=0; j<bones.size(); j++) {
-                            Bone b = bones.get(j);
-                            // this bone is already animated
-                            if(b==null || activeBones[j])
-                                continue;
+            if(a.needUpdate) {
+                a.needUpdate = false;
+                if(a.currentFrame == null || a.nextFrame == null) {
+                    System.out.append("null anim");
+                } else {
+                    for(int j=0; j<bones.size(); j++) {
+                        Bone b = bones.get(j);
+                        // this bone is already animated
+                        if(b==null || activeBones[j])
+                            continue;
 
 
-                            // calculate the bone transform
-                            calcBoneTransform(b, a.currentFrame.transform, a.nextFrame!=null?a.nextFrame.transform:null, interpolation);
-                        }
-                        updateItems = true;
+                        // calculate the bone transform
+                        calcBoneTransform(b, a.currentFrame.transform, a.nextFrame!=null?a.nextFrame.transform:null, interpolation);
                     }
+                    updateItems = true;
                 }
-            //}
+            }
         }
         // update is forced
         // update not yet updated matrices with frame transform
@@ -544,31 +438,12 @@ public class XBoneAnimationController extends BoneAnimationController {
                     continue;
                 
                 skinTransforms[j].set(b.matrixOffset).multLocal(boneTransforms[j]);//
-                
-                //tempMat.set(b.frameMatrix).invertLocal().multLocal(boneTransforms[j]);
-                //skinTransforms[j].set(b.matrixOffset).multLocal(tempMat);//
             }
 
             // apply the bones to animated items
             for(int k=0; k<animated.size(); k++) {
                 XAnimatedItem item = animated.get(k);
                 item.setMatrixValues(skinTransforms);
-                /*
-                // go over the matrices and set all that are needed in the item
-                item.matrixBuffer.position(0);
-                for(int l=0, ml=item.boneMapping.size(); l<ml; l++) {
-                    // the bone-s mapped id for this animated item
-                    int origBone = item.boneMapping.get(l);
-                    //if(origBone!=0) {
-                        // TODO: just for testing
-                        //skinTransforms[origBone].loadIdentity();
-                        // if this bone is actualy required in the item
-                        item.matrixBuffer.put(skinTransforms[origBone]);
-                    //}
-                }
-                item.matrixBuffer.rewind();
-                //item.shaderParams.setNeedsRefresh(true);
-                 */
             }
         }
     }
@@ -580,11 +455,6 @@ public class XBoneAnimationController extends BoneAnimationController {
     protected void calcBoneTransform(Bone b, Matrix4f[] transforms1, Matrix4f[] transforms2, float interpolation) {
         
         // this bone is already animated
-        //if(activeBones[b.id])
-        //    return;
-        // if have animation for thius bone
-        
-        //boneTransforms[b.id].set(b.frameMatrix);
         
         if(transforms1!=null && transforms1[b.id]!=null) {
             // multiply matrix with parents matrix
@@ -604,16 +474,6 @@ public class XBoneAnimationController extends BoneAnimationController {
             //boneTransforms[b.id].loadIdentity();
         }
           
-        //boneTransforms[b.id].multLocal(b.frameMatrix);
-        
-        /*
-        // do we interpolate?
-        if(transforms2!=null && transforms2[b.id]!=null ) {
-            // TODO: maybe we need slerp on rotation?
-            boneTransforms[b.id].interpolate(transforms2[b.id], interpolation);
-        }
-         */
-             
         if(b.parent != null) {
             // if parent is not yet animated animate it
             if(!activeBones[b.parent.id])
@@ -625,16 +485,6 @@ public class XBoneAnimationController extends BoneAnimationController {
         }
 
         activeBones[b.id] = true;
-        /*
-        // process our children
-        for(int i=0, mi=animPack.bones.size(); i<mi; i++) {
-            Bone cb = animPack.bones.get(i);
-            if(cb!=null && cb.parent == b) {
-                // child bone, process it
-                calcBoneTransform(cb, transforms1, transforms2, interpolation);
-            }
-        }
-         */
     }
 
 }

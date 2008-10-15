@@ -32,12 +32,13 @@
 
 package com.vlengine.input;
 
-import java.lang.reflect.Method;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * This class stores related keybindings. Each input event is dispatched
+ * to a listener using the keybinding table in a keybindingset.
+ * 
  * @author vear
  */
 public class KeyBindingSet {
@@ -48,7 +49,6 @@ public class KeyBindingSet {
     
     protected String[] keyBinding = new String[InputSystem.MAX_KEYS];
     protected InputListener[] handler = new InputListener[InputSystem.MAX_KEYS];
-    //protected Method[] method = new Method[InputSystem.MAX_KEYS];
     
     public KeyBindingSet(String name, String group) {
         this.name = name;
@@ -73,10 +73,8 @@ public class KeyBindingSet {
 
     public void set(String command, int keyCode, InputListener handler) {
         try {
-            //Method mth = handler.getClass().getMethod(command, InputSystem.handlerSig);
             keyBinding[keyCode] = command;
             this.handler[keyCode] = handler;
-            //method[keyCode] = mth;
         } catch (Exception ex) {
             Logger.getLogger(KeyBindingSet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -90,12 +88,6 @@ public class KeyBindingSet {
         return handler[keyCode];
     }
     
-    /*
-    public Method getMethod(int keyCode) {
-        return method[keyCode];
-    }
-     */
-
     public void remove( String command ) {
         for( int i=0; i<keyBinding.length; i++ ) {
             if(command.equals(keyBinding[i])) {

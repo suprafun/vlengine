@@ -46,9 +46,8 @@ import java.net.URL;
  * method. Position data can be queried by various get methods.
  * For each button that is pressed or released as well as for movement of
  * mouse or wheel an event is generated which
- * can be received by a {@link MouseInputListener}, these are subsribed via
- * {@link #addListener(MouseInputListener)}. Handling of events is done inside the
- * {@link #update} method.
+ * can be received by InputListener and dispatched to {@link InputListener}, these are subsribed via
+ * adding a KeyBindingSet to the InputSystem.
  * @author Mark Powell
  * @version $Id: MouseInput.java,v 1.25 2007/08/16 13:19:09 rherlitz Exp $
  */
@@ -80,18 +79,6 @@ public abstract class MouseInput {
         this.input = input;
     }
     
-    /**
-     * @return the input instance, implementation is determined by querying {@link #getProvider()}
-     */
-    /*
-    public static MouseInput get() {
-        if ( instance == null ) {
-            instance = new LWJGLMouseInput();
-        }
-        return instance;
-    }
-     */
-
     /**
      *
      * <code>getButtonIndex</code> gets the button code for a given button

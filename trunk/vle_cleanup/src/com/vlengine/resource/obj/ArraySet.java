@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 
 /**
- *
+ * Class used during loading of OBJ models
  * @author vear (Arpad Vekas)
  */
 public class ArraySet {
