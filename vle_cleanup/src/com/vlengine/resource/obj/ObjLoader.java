@@ -38,7 +38,6 @@ package com.vlengine.resource.obj;
 
 import com.vlengine.app.AppContext;
 import com.vlengine.image.Image;
-import com.vlengine.image.Texture;
 import com.vlengine.math.FastMath;
 import com.vlengine.math.Vector2f;
 import com.vlengine.math.Vector3f;

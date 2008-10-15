@@ -32,8 +32,7 @@
 
 package com.vlengine.scene.animation.MD5;
 
-import com.vlengine.scene.animation.*;
-import com.vlengine.resource.model.*;
+import com.vlengine.scene.animation.Bone;
 import com.vlengine.util.FastList;
 import java.util.HashMap;
 

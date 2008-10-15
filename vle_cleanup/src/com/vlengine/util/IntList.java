@@ -35,7 +35,7 @@ package com.vlengine.util;
 import java.util.Arrays;
 
 /**
- *
+ * TODO: remove this and use TIntArrayList from trove
  * @author vear (Arpad Vekas)
  */
 public class IntList {

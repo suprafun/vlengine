@@ -36,7 +36,6 @@
 
 package com.vlengine.math;
 
-import com.vlengine.math.Vector3f;
 import com.vlengine.system.VleException;
 import com.vlengine.thread.Context;
 import com.vlengine.thread.LocalContext;

@@ -37,7 +37,7 @@ import com.vlengine.resource.model.ModelMaterial;
 import java.util.HashMap;
 
 /**
- *
+ * Class representing an MTL file associated with an OBJ file
  * @author vear (Arpad Vekas)
  */
 public class ObjMtlLib {

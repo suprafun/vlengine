@@ -47,7 +47,6 @@ import java.io.File;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
-import java.util.HashMap;
 import java.util.HashSet;
 
 /**
@@ -57,32 +56,16 @@ import java.util.HashSet;
 public class ModelPartPack {
     // the (file) name of the modelpack
     // there are multiple files associated with the pack:
-    //      MDV for vertex attributes data (VertexBuffer)
+    //      _v.dat for vertex attributes data (VertexBuffer)
     //          interleaved vertex attributes
-    //      MDX for vertex indices data (IndexBuffer)
+    //      _is.dat or _ii.dat for vertex indices data (IndexBuffer)
     //              
-    //      MDP modelpack information
+    //      modelpack information
     //              name
     //              display list mode
     //              VBO mode
     //              vertex format
-    //              block id (city grid information for static geometry)
     //              
-    //              name of the model
-    //              LOD levels of the model
-    //              for each LOD level
-    //                  submodel parts of the model
-    //                      name of the part (unnamed parts will be TriBatch, named ones will be Mesh+TriBatch)
-    //                      geometry to use (CompositeGeometry)
-    //                          startvertex
-    //                          numvertex
-    //                          startindex
-    //                          numindex
-    //                      material information (Material)
-    //                          mat_func (method to use from material library)
-    //                          alpha, cull, material-state
-    //                          submaterials (textures) (Texture)
-    //                      bounds
 
     protected String name;
 

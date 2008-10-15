@@ -36,7 +36,6 @@
 
 package com.vlengine.resource;
 
-import com.vlengine.resource.ParameterMap;
 import com.vlengine.image.BitmapHeader;
 import com.vlengine.image.Image;
 import com.vlengine.image.Texture;

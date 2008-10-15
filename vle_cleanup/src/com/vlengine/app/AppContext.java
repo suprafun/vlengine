@@ -45,7 +45,6 @@ import com.vlengine.renderer.RenderContext;
 import com.vlengine.renderer.RenderQueue;
 import com.vlengine.renderer.ViewCamera;
 import com.vlengine.renderer.pass.RenderPass;
-import com.vlengine.renderer.pass.RenderPass;
 import com.vlengine.resource.ResourceFinder;
 import com.vlengine.scene.CameraNode;
 import com.vlengine.scene.Node;
@@ -89,10 +88,6 @@ public class AppContext {
     
     public Text fps;
     public Text stats;
-
-    //public LightState lightState;
-    
-    //public RenderStateEffect lightEffect;
     
     public boolean pause;
    
@@ -112,7 +107,7 @@ public class AppContext {
     public boolean showBounds = false;
 
     /**
-     * True if the rnederer should display normals.
+     * True if the renederer should display normals.
      */
     public boolean showNormals = false;
 

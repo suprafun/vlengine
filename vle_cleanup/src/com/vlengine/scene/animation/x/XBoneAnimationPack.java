@@ -37,7 +37,11 @@ import com.vlengine.util.FastList;
 import java.util.HashMap;
 
 /**
- *
+ * Contains an animation pack (multiple named animations)
+ * For practicality reasons it is better to export all the animations
+ * from Maya as a single animation, and not split them.
+ * The ControllerAnimationPack can then split the animations.
+ * So we have actually only one animation present here.
  * @author vear (Arpad Vekas)
  */
 public class XBoneAnimationPack {

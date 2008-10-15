@@ -37,13 +37,12 @@
 package com.vlengine.input;
 
 import com.vlengine.app.AppContext;
-import com.vlengine.app.MainGame;
 import com.vlengine.math.Vector3f;
 import com.vlengine.system.VleException;
 import java.util.logging.Logger;
 
 /**
- *
+ * Input handler for debug commands, this input handler is used in tests
  * @author vear (Arpad Vekas) reworked for VL engine
  */
 public class InputHandler {

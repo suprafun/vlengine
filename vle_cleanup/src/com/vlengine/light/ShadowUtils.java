@@ -45,6 +45,7 @@ public class ShadowUtils {
     /**
      * Calculates number of frustrum splits.
      * Source: http://hax.fi/asko/PSSM.html#OpenGL
+     *   "The demo and its source code are public domain. Feel free use them in any imaginable way. Crediting is appreciated but not necessary. "
      * @param iNumOfSplits
      * @param fNear
      * @param fFar

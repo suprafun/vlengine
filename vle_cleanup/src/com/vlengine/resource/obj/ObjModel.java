@@ -32,25 +32,15 @@
 
 package com.vlengine.resource.obj;
 
-import com.vlengine.app.AppContext;
 import com.vlengine.bounding.BoundingBox;
-import com.vlengine.image.Texture;
 import com.vlengine.math.Vector2f;
 import com.vlengine.math.Vector3f;
 import com.vlengine.model.Geometry;
 import com.vlengine.renderer.VBOAttributeInfo;
-import com.vlengine.renderer.material.Material;
-import com.vlengine.renderer.material.MaterialLib;
 import com.vlengine.resource.ParameterMap;
 import com.vlengine.resource.model.Model;
 import com.vlengine.resource.model.ModelMaterial;
 import com.vlengine.resource.model.ModelPart;
-import com.vlengine.scene.LodMesh;
-import com.vlengine.scene.Mesh;
-import com.vlengine.scene.Node;
-import com.vlengine.scene.SetNode;
-import com.vlengine.scene.Spatial;
-import com.vlengine.scene.batch.TriBatch;
 import com.vlengine.util.geom.BufferUtils;
 import com.vlengine.util.geom.IndexBuffer;
 import com.vlengine.util.geom.VertexAttribute;

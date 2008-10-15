@@ -33,7 +33,7 @@
 package com.vlengine.resource.obj;
 
 /**
- *
+ * Class used during loading of OBJ models
  * @author vear (Arpad Vekas)
  */
 public class IndexSet {

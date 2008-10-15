@@ -36,7 +36,6 @@
 
 package com.vlengine.intersection;
 
-import com.vlengine.math.Quaternion;
 import com.vlengine.math.Vector3f;
 import com.vlengine.scene.LodMesh;
 import com.vlengine.scene.Mesh;

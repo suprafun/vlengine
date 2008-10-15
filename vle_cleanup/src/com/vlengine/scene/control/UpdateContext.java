@@ -35,7 +35,8 @@ package com.vlengine.scene.control;
 import com.vlengine.app.frame.Frame;
 
 /**
- *
+ * Contex passed to update methods in the update traversal of the
+ * scene.
  * @author vear (Arpad Vekas)
  */
 public class UpdateContext {

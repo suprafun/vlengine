@@ -37,7 +37,6 @@
 package com.vlengine.intersection;
 
 import com.vlengine.math.Ray;
-import com.vlengine.scene.batch.TriBatch;
 import com.vlengine.util.FastList;
 
 /**

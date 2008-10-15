@@ -37,7 +37,9 @@ import com.vlengine.scene.state.shader.ShaderVariableMatrix4Buffer;
 import com.vlengine.util.IntList;
 
 /**
- *
+ * Represents a GPU skinned item, which can be multiple items.
+ * The "matrixBuffer" is filled by the XBoneAnimationController,
+ * and is used by the skinning shaders in the batches.
  * @author vear (Arpad Vekas)
  */
 public class XGPUAnimatedItem implements XAnimatedItem {

@@ -47,7 +47,7 @@ import java.nio.FloatBuffer;
 
 
 /**
- * ModelPackCreator is usable for creating model packs,
+ * ModelPackCreator is used for creating model packs,
  * which is tightly packed into geometry files. Those files
  * can be read back into ModelPack objects, and individual
  * models can be requested from those for placement into the scene.

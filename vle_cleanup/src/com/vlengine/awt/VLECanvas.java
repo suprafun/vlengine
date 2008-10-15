@@ -37,12 +37,9 @@
 package com.vlengine.awt;
 
 import com.vlengine.app.AppContext;
-import com.vlengine.app.frame.Frame;
-import com.vlengine.input.InputSystem;
 import com.vlengine.renderer.ColorRGBA;
 import com.vlengine.renderer.Renderer;
 import com.vlengine.system.DisplaySystem;
-import com.vlengine.system.VleException;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;

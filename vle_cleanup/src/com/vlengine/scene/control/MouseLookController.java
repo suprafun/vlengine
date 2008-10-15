@@ -45,7 +45,7 @@ import com.vlengine.system.DisplaySystem;
 import com.vlengine.system.VleException;
 
 /**
- *
+ * Camera controller class for controlling the camera free look rotation with the mouse
  * @author vear (Arpad Vekas)
  */
 public class MouseLookController extends Controller {

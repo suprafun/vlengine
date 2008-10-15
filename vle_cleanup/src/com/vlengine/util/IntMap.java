@@ -37,7 +37,7 @@ import java.util.Arrays;
 
 /**
  * A HashMap for int,Object values
- * 
+ * TODO: remove this and use TIntHash from trove
  * @author vear (Arpad Vekas)
  */
 public class IntMap {

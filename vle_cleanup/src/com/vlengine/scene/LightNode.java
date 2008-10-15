@@ -45,8 +45,9 @@ import com.vlengine.scene.batch.LightBatch;
  * light object. A light node contains a single light, and positions the light
  * based on it's translation vector. If the contained light is a spot light, the
  * rotation of the node determines it's direction. If the contained light is a
- * Directional light rotation determines it's direction. It has no concept of
- * location.
+ * Directional light rotation determines it's direction. The location is used
+ * in conjunction with the bound attached to the light, to cull the lights
+ * that currently have no effect on the rendered scene.
  * 
  * @author Mark Powell
  * @author vear (Arpad Vekas) reworked for VL engine

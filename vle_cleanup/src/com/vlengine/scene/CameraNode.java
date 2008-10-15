@@ -38,7 +38,8 @@ import com.vlengine.renderer.ViewCamera;
 import com.vlengine.scene.control.UpdateContext;
 
 /**
- *
+ * Class represents the camera attached to the scene,
+ * used to control the main view camera.
  * @author vear (Arpad Vekas)
  */
 public class CameraNode extends SetNode {

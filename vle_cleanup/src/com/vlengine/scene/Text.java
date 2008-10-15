@@ -36,31 +36,23 @@
 
 package com.vlengine.scene;
 
-import com.vlengine.renderer.ColorRGBA;
 import com.vlengine.app.MainGame;
-import com.vlengine.app.frame.Frame;
 import com.vlengine.image.Image;
 import com.vlengine.image.Texture;
-import com.vlengine.intersection.CollisionResults;
 import com.vlengine.intersection.PickResults;
-import com.vlengine.math.Ray;
-import com.vlengine.math.Transform;
 import com.vlengine.renderer.ColorRGBA;
 import com.vlengine.renderer.RenderQueue;
-import com.vlengine.renderer.CullContext;
 import com.vlengine.renderer.material.Material;
 import com.vlengine.scene.batch.TextBatch;
-import com.vlengine.scene.control.UpdateContext;
 import com.vlengine.scene.state.AlphaBlendState;
 import com.vlengine.scene.state.TextureState;
 import com.vlengine.util.TextureManager;
-
-// TODO: make this class update/render safe
 
 /**
  * 
  * <code>Text</code> allows text to be displayed on the screen. The
  * renderstate of this Geometry must be a valid font texture.
+ * TODO: make this class update/render safe
  * 
  * @author Mark Powell
  * @author vear (Arpad Vekas) reworked for VL engine

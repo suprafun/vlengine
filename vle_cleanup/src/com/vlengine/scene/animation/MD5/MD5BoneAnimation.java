@@ -33,11 +33,8 @@
 package com.vlengine.scene.animation.MD5;
 
 import com.vlengine.scene.animation.*;
-import com.vlengine.math.Quaternion;
 import com.vlengine.math.Vector3f;
-import com.vlengine.util.FastList;
 import com.vlengine.util.IntList;
-import com.vlengine.scene.animation.MD5.MD5AnimationFrame;
 
 /**
  * Represents bone animation definition, this class represents one animation.

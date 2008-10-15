@@ -37,7 +37,6 @@
 package com.vlengine.light;
 
 import com.vlengine.bounding.BoundingBox;
-import com.vlengine.bounding.BoundingSphere;
 import com.vlengine.bounding.BoundingVolume;
 import com.vlengine.math.FastMath;
 import com.vlengine.math.Plane;

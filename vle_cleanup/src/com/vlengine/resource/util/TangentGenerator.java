@@ -37,7 +37,6 @@ import com.vlengine.math.Vector2f;
 import com.vlengine.math.Vector3f;
 import com.vlengine.model.BaseGeometry;
 import com.vlengine.model.Geometry;
-import com.vlengine.renderer.ColorRGBA;
 import com.vlengine.util.FastList;
 import com.vlengine.util.geom.BufferUtils;
 import com.vlengine.util.geom.GeometryIterator;
@@ -51,9 +50,11 @@ import java.util.logging.Logger;
 
 /**
  * Generates tangents for CompositeGeometry. Note that (for now),
- * only non-interleaved data buffers can be processed. 
+ * only non-interleaved data buffers can be processed. This class is
+ * automatically called be the ModelPackCreator if a bump or normal map
+ * texture is found in the attached material of a model.
  * @author lex (Aleksey Nikiforov)
- * @author vear (Arpad Vekas) reworked for VL engine - NOT TESTED
+ * @author vear (Arpad Vekas) reworked for VL engine
  */
 public class TangentGenerator {
     private static final Logger log = Logger.getLogger(TangentGenerator.class.getName());

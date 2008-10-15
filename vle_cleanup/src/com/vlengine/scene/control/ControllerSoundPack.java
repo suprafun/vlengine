@@ -36,7 +36,6 @@ import com.vlengine.app.AppContext;
 import com.vlengine.audio.AudioSystem;
 import com.vlengine.audio.AudioTrack;
 import com.vlengine.audio.AudioTrack.TrackType;
-import com.vlengine.audio.RangedAudioTracker;
 import com.vlengine.math.Vector3f;
 import com.vlengine.resource.ParameterMap;
 import com.vlengine.scene.Spatial;
@@ -44,7 +43,8 @@ import com.vlengine.util.FastList;
 import java.util.Arrays;
 
 /**
- *
+ * Class controlling the souds associated with a character model like
+ * walking, running, landing
  * @author vear (Arpad Vekas)
  */
 public class ControllerSoundPack {

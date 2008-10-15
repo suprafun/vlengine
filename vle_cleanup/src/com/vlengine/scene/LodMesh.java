@@ -49,7 +49,8 @@ import com.vlengine.scene.control.UpdateContext;
 import com.vlengine.util.FastList;
 
 /**
- *
+ * Class holding multiple geometryes rendered with different materials.
+ * This class can be substituted with SetNode and Mesh objects
  * @author vear (Arpad Vekas) reworked for VL engine
  */
 public class LodMesh extends Spatial {

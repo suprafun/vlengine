@@ -35,14 +35,11 @@ package com.vlengine.awt;
 import com.vlengine.app.MainGame;
 import com.vlengine.input.InputHandler;
 import com.vlengine.scene.CameraNode;
-import com.vlengine.scene.SetNode;
 import com.vlengine.scene.control.KeyboardMoveController;
 import com.vlengine.scene.control.MouseLookController;
 import com.vlengine.system.DisplaySystem;
 import com.vlengine.system.PropertiesIO;
-import com.vlengine.thread.LocalContext;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 
@@ -53,7 +50,6 @@ import java.util.logging.Logger;
  * @author vear (Arpad Vekas)
  */
 public abstract class CanvasMainGame extends MainGame {
-    private static final Logger logger = Logger.getLogger(MainGame.class.getName());
     
     protected VLECanvas canvas;
     protected int width, height;

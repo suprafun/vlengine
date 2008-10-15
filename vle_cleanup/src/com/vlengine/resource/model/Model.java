@@ -71,10 +71,13 @@ import java.util.HashMap;
  * more advanced have more geometry parts, materials. All these are stored in 
  * the model object.
  * 
+ * The model.getInstance() method is used to request a Node which can be attached to
+ * the scene.
+ * 
  * @author vear (Arpad Vekas)
  */
 public class Model {
-    //      MDL model file (possibly XML) for all models in the pack (Mesh, LodMesh, Node)
+    //      Model model file (as XML) for all models in the pack (Mesh, LodMesh, Node)
     //              name of the model
     //              LOD levels of the model
     //              for each LOD level

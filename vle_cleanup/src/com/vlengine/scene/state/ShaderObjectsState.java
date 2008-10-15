@@ -41,8 +41,6 @@ import com.vlengine.renderer.RenderContext;
 import com.vlengine.renderer.material.ShaderKey;
 import com.vlengine.scene.state.shader.ShaderVariable;
 import com.vlengine.scene.state.shader.ShaderVariableLocation;
-import com.vlengine.system.DisplaySystem;
-import com.vlengine.util.FastList;
 import com.vlengine.util.geom.BufferUtils;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
@@ -61,16 +59,6 @@ public class ShaderObjectsState extends RenderState {
     private static final Logger logger = Logger
             .getLogger(ShaderObjectsState.class.getName());
 
-    /** Storage for shader uniform values */
-    
-    //protected FastList<ShaderVariable> shaderUniforms =
-    //        new FastList<ShaderVariable>();
-    
-    /** Storage for shader attribute values */
-    //protected FastList<ShaderVariable> shaderAttributes =
-    //        new FastList<ShaderVariable>();
-    
-        
     protected static boolean supported = false;
     
     /** Holds the maximum number of vertex attributes available. */
@@ -105,38 +93,6 @@ public class ShaderObjectsState extends RenderState {
         return supported;
     }
 
-    /*
-    public void defineUniform( String name ) {
-        boolean found = false;
-        for (int i = shaderUniforms.size(); --i >= 0;) {
-            ShaderVariable temp = shaderUniforms.get(i);
-            if (name.equals(temp.name)) {
-                found = true;
-            }
-        }
-        if( !found ) {
-            ShaderVariable un = new ShaderVariable();
-            un.name = name;
-            shaderUniforms.add(un);
-        }
-    }
-    
-    public void defineAttribute( String name ) {
-        boolean found = false;
-        for (int i = shaderAttributes.size(); --i >= 0;) {
-            ShaderVariable temp = shaderAttributes.get(i);
-            if (name.equals(temp.name)) {
-                found = true;
-            }
-        }
-        if( !found ) {
-            ShaderVariable un = new ShaderVariable();
-            un.name = name;
-            shaderAttributes.add(un);
-        }
-    }
-     */
-    
     /**
      * @return RS_SHADER_OBJECTS
      * @see com.jme.scene.state.RenderState#getType()
@@ -145,30 +101,6 @@ public class ShaderObjectsState extends RenderState {
         return RS_GLSL_SHADER_OBJECTS;
     }
 
-    /* (non-Javadoc)
-     * @see com.jme.scene.state.GLSLShaderObjectsState#checkAttributeSizeLimits()
-     */
-    /*
-    public boolean checkAttributeSizeLimits() {
-      if (shaderAttributes.size() > maxVertexAttribs) {
-            logger.severe("Too many shader attributes(standard+defined): "
-                            + shaderAttributes.size() + " maximum: "
-                            + maxVertexAttribs);
-            return false;
-        } else {
-          // check if we are on nVidia
-          if(DisplaySystem.getDisplaySystem().getDisplaySignature().toUpperCase().contains("NVIDIA")) {
-              // on nvidia reserve the first 10 attributes for fixed function attributes
-              // this will allow for 2 texcoord sets
-              if (shaderAttributes.size() + 10 > maxVertexAttribs)
-                logger.warning("User defined attributes might overwrite default OpenGL attributes");
-              return false;
-          }
-        }
-      return true;
-    }
-     */
-    
     /**
      * Load an URL and grab content into a ByteBuffer.
      *

@@ -45,7 +45,6 @@ import com.vlengine.renderer.RenderQueue;
 import com.vlengine.renderer.ViewCamera;
 import com.vlengine.renderer.pass.DepthTexturePass;
 import com.vlengine.renderer.pass.LightPass;
-import com.vlengine.renderer.pass.RenderPass;
 import com.vlengine.scene.Renderable;
 import com.vlengine.scene.batch.LightBatch;
 import com.vlengine.scene.control.UpdateContext;
@@ -53,7 +52,9 @@ import com.vlengine.util.FastList;
 import java.util.HashMap;
 
 /**
- * This gamestate is...
+ * This gamestate is supposed to managed lights as LightSorterGameState
+ * but also to managed perspective split shadow maps of those lisghts too.
+ * TODO: this is incomplete code
  * 
  * @author vear (Arpad Vekas)
  */

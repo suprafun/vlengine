@@ -36,7 +36,7 @@ import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 /**
- *
+ * Class used for parsing text files
  * @author lex (Aleksey Nikiforov)
  */
 public class Tokens {

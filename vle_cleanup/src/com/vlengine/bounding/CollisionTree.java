@@ -41,16 +41,14 @@ import com.vlengine.math.Quaternion;
 import com.vlengine.math.Ray;
 import com.vlengine.math.Vector3f;
 import com.vlengine.model.Geometry;
-import com.vlengine.scene.LodMesh;
 import com.vlengine.scene.Spatial;
 import com.vlengine.thread.Context;
 import com.vlengine.thread.LocalContext;
-import com.vlengine.util.FastList;
 import com.vlengine.util.IntList;
 import com.vlengine.util.SortUtil;
 
 /**
- * 
+ * TODO:There is bug in triangle collision calculation
  * @author vear (Arpad Vekas) reworked for VL engine
  */
 public class CollisionTree {

@@ -32,11 +32,12 @@
 
 package com.vlengine.scene;
 
-import com.vlengine.util.FastList;
 import java.util.logging.Logger;
 
 /**
- *
+ * Abstract class representing a Node, a Node in the scene can have multiple
+ * child Spatials. The class is abstract because there can be multiple implementations.
+ * One of the implementations is SetNode.
  * @author vear (Arpad Vekas)
  */
 public abstract class Node extends Spatial {
@@ -73,13 +74,5 @@ public abstract class Node extends Spatial {
     public abstract boolean hasChild(Spatial spat);
     
     public abstract Spatial getChild(int i);
-    
-    /*
-    public abstract void addEffect(SceneEffect child);
-    
-    public abstract void removeEffect(SceneEffect child);
-    
-    public abstract FastList<SceneEffect> getEffects();
-     */
     
 }
