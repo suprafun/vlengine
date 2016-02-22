@@ -1,0 +1,3 @@
+The VLEngine is a branch of jMonkeyEngine core. It has been rewritten independently of the jME developers. The purpose of this repository is to allow developers and community to take a look at updated code and help the porting of useful code parts back to jMonkeyEngine. It is not meant to be used as a complete library in itself. Parts of the code are highly experimental.
+
+See: http://www.jmonkeyengine.com/jmeforum/index.php?topic=9264.0
